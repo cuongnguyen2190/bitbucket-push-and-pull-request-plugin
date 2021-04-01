@@ -121,15 +121,15 @@ public class BitBucketPPRJobProbe {
         // TODO: is it needed? There is only a remote, the HTML one, that is used the do
         // the
         // match
-        boolean isRemoteSet = false;
-        for (URIish remote : remotes) {
-          if (match(scmTrigger, remote)) {
-            isRemoteSet = true;
-            break;
-          }
-        }
+//        boolean isRemoteSet = true;
+//        for (URIish remote : remotes) {
+//          if (match(scmTrigger, remote)) {
+//            isRemoteSet = true;
+//            break;
+//          }
+//        }
 
-        if (isRemoteSet && !hasBeenTriggered(scmTriggered, scmTrigger)) {
+        if (!hasBeenTriggered(scmTriggered, scmTrigger)) {
           scmTriggered.add(scmTrigger);
           logger.log(Level.FINE, "Triggering trigger {0} for job {1}",
               new Object[] { bitbucketTrigger.getClass().getName(), job.getFullDisplayName() });
@@ -211,7 +211,8 @@ public class BitBucketPPRJobProbe {
 
   private boolean match(SCM scm, URIish url) {
     if (scm instanceof GitSCM) {
-      return matchGitScm(scm, url);
+//      return matchGitScm(scm, url);
+      return true;
     } else if (scm instanceof MercurialSCM) {
       return matchMercurialScm(scm, url);
     }
